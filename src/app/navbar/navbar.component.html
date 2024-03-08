@@ -1,0 +1,32 @@
+<div class="nav-container">
+  <div class="image-container">
+    <img
+      src="../../assets/img/shikshalokam-logo.png"
+      alt="Shikshalokam"
+      class="logo"
+    />
+  </div>
+  <div class="nav-items-container">
+    <a
+      class="nav-item"
+      routerLink="employee"
+      (click)="activeTab = activeTabConfig.employee"
+      href="#"
+      [ngClass]="activeTab === activeTabConfig.employee ? 'active' : ''"
+    >
+      Employee Data
+    </a>
+    <!-- <a
+      class="nav-item"
+      *ngIf="!isDisabled"
+      routerLink="company"
+      (click)="activeTab = activeTabConfig.company"
+      [ngClass]="activeTab === activeTabConfig.company ? 'active' : ''"
+    >
+      Company Information
+    </a>
+    <a class="nav-item" *ngIf="isDisabled" class="disabled">
+      Company Information
+    </a> -->
+  </div>
+</div>

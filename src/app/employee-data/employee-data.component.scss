@@ -1,0 +1,24 @@
+:host {
+  .container {
+    padding-top: 150px;
+    height: calc(100vh - 90px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .form-container {
+      height: calc(100vh - 300px);
+      overflow-y: auto;
+      width: 100%;
+      .grid-container {
+        width: 100%;
+        display: grid;
+        justify-content: flex-start;
+        grid-auto-flow: dense;
+        grid-template-columns: repeat(auto-fill, 400px);
+        gap: 33px;
+        margin-top: 30px;
+        margin-bottom: 52px;
+      }
+    }
+  }
+}

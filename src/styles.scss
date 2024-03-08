@@ -1,1 +1,134 @@
 /* You can add global styles to this file, and also import other style files */
+@import "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap";
+:root {
+  --primary-text-color: #333333;
+  --hover--text-color: #56bc40;
+  --background-color: #f4f4f4;
+  --gray-color: #aaa6a6;
+  --danger: #fa4d56;
+  --primary-darker-color: #392e2e;
+  --cardHoverShadow: 2px 3px 5px 2px rgba(98, 61, 159, 0.34);
+  --hover-button-color: #8a6e6e;
+  --white-color: #ffffff;
+}
+body {
+  box-sizing: border-box;
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  color: var(--primary-text-color);
+
+  .nav-item {
+    padding: 15px;
+    width: max-content;
+    font-weight: 600;
+    color: var(--primary-text-color);
+    text-decoration: none;
+  }
+  .nav-item:hover {
+    border-bottom: 2px solid var(--primary-text-color) !important;
+    cursor: pointer;
+  }
+  .nav-item:active {
+    border-bottom: 2px solid var(--primary-text-color) !important;
+  }
+
+  .active {
+    border-bottom: 2px solid var(--primary-text-color);
+  }
+
+  .disabled {
+    color: var(--gray-color);
+    cursor: not-allowed;
+  }
+
+  .err-msg {
+    color: var(--danger);
+    font-style: italic;
+    font-size: small;
+    font-weight: bold;
+  }
+
+  .p-card {
+    background: var(--background-color);
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 2px 3px 5px 2px rgba(98, 98, 98, 0.25);
+    margin-bottom: 12px;
+    width: 80vw;
+    min-width: max-content;
+  }
+
+  .p-card:hover {
+    box-shadow: var(--cardHoverShadow);
+  }
+
+  .p-card .p-card-body {
+    height: auto;
+    width: 100%;
+    padding: 10px;
+  }
+  .list-view-p-card .p-card {
+    width: 100%;
+  }
+
+  .list-view-p-card .p-card .p-card-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .p-card .p-card-content {
+    padding: 1rem;
+  }
+
+  .p-button {
+    padding: 11.5px 17px;
+    background-color: var(--white-color);
+    color: var(--primary-text-color);
+    box-shadow: 2px 3px 5px 2px rgba(98, 98, 98, 0.25);
+    border-radius: 6px;
+    font-weight: 600;
+    padding: 10px 16px;
+    height: 42px;
+  }
+
+  .p-button:hover {
+    background-color: var(--hover-button-color) !important;
+    color: var(--primary-text-color) !important;
+  }
+
+  .p-datepicker table td {
+    padding: 0.5rem !important;
+  }
+
+  .p-datepicker table td > span {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .p-datepicker table {
+    font-size: 10pt;
+    margin: -0.143rem 0;
+  }
+
+  .p-datepicker .p-datepicker-header {
+    padding: 0.1rem;
+  }
+  .cdk-virtual-scroll-viewport {
+    height: 120px !important;
+  }
+  .input-text {
+    height: 36px !important;
+  }
+
+  .p-datepicker:not(.p-datepicker-inline) {
+    border: 1px solid var(--inputBorder);
+    height: 245px;
+    overflow-y: scroll;
+  }
+}

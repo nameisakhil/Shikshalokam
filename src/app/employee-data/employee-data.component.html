@@ -1,0 +1,159 @@
+<div class="container">
+  <p-card>
+    <div class="flex justify-content-around">
+      <form [formGroup]="employeeForm" class="form-container">
+        <div formArrayName="formFields" class="grid-container">
+          <div *ngFor="let control of getFormField['controls']; index as index">
+            <div [formGroupName]="index">
+              <h2 class="text-xl">{{ control.get("label").value }}</h2>
+              <div formArrayName="fields">
+                <div
+                  *ngFor="
+                    let formControl of getSubFormFields(index).controls;
+                    index as inedx2
+                  "
+                >
+                  <div [formGroupName]="inedx2">
+                    <p class="text-base font-semibold">
+                      {{ formControl.get("label").value }}
+                    </p>
+                    <div
+                      *ngIf="
+                        formControl.get('type').value === config.Types.text
+                      "
+                    >
+                      <input
+                        pInputText
+                        [type]="formControl.get('type').value"
+                        [placeholder]="formControl.get('placeholder').value"
+                        [formControlName]="formControl.get('name').value"
+                      />
+
+                      <p
+                        class="err-msg"
+                        *ngIf="
+                          isSubmitted &&
+                          !formControl.get(formControl.get('name').value).valid
+                        "
+                      >
+                        This Field is required and
+                        {{ formControl.get("pattern").value }}
+                      </p>
+                    </div>
+
+                    <div
+                      *ngIf="
+                        formControl.get('type').value === config.Types.radio ||
+                        formControl.get('type').value === config.Types.select
+                      "
+                    >
+                      <div class="flex gap-3">
+                        <div
+                          *ngFor="
+                            let option of formControl.get('options').value
+                          "
+                          class="field-checkbox"
+                        >
+                          <p-radioButton
+                            [name]="formControl.get('name').value"
+                            [inputId]="option.value"
+                            [value]="option.value"
+                            [formControlName]="formControl.get('name').value"
+                          ></p-radioButton>
+                          <label [for]="option.value" class="ml-2">{{
+                            option.label
+                          }}</label>
+                        </div>
+                      </div>
+                      <p
+                        class="err-msg"
+                        *ngIf="
+                          isSubmitted &&
+                          !formControl.get(formControl.get('name').value).valid
+                        "
+                      >
+                        This Field is required
+                      </p>
+                    </div>
+
+                    <div
+                      *ngIf="
+                        formControl.get('type').value === config.Types.checkbox
+                      "
+                    >
+                      <div class="flex gap-3">
+                        <div
+                          *ngFor="
+                            let option of formControl.get('options').value
+                          "
+                          class="field-checkbox"
+                        >
+                          <p-checkbox
+                            [name]="formControl.get('name').value"
+                            [value]="option.value"
+                            [formControlName]="formControl.get('name').value"
+                            [inputId]="option.value"
+                          ></p-checkbox>
+                          <label [for]="option.value">{{ option.label }}</label>
+                        </div>
+                      </div>
+                      <p
+                        class="err-msg"
+                        *ngIf="
+                          isSubmitted &&
+                          !formControl.get(formControl.get('name').value).valid
+                        "
+                      >
+                        This Field is required
+                      </p>
+                    </div>
+
+                    <div
+                      *ngIf="
+                        formControl.get('type').value === config.Types.date
+                      "
+                    >
+                      <p-calendar
+                        [formControlName]="formControl.get('name').value"
+                        [showIcon]="true"
+                        [showButtonBar]="true"
+                      ></p-calendar>
+                      <p
+                        class="err-msg"
+                        *ngIf="
+                          isSubmitted &&
+                          !formControl.get(formControl.get('name').value).valid
+                        "
+                      >
+                        This Field is required
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- <div class="flex justify-content-center align-items-center">
+        <iframe
+          src="https://gifer.com/embed/3MhG"
+          width="100%"
+          height="100%"
+          frameBorder="0"
+          style="height: 40vh"
+          allowFullScreen
+        ></iframe>
+      </div> -->
+    </div>
+    <div class="flex justify-content-end">
+      <p-button
+        class="pop-button"
+        label="Next"
+        [text]="true"
+        [raised]="true"
+        (onClick)="submit()"
+      ></p-button>
+    </div>
+  </p-card>
+</div>

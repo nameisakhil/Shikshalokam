@@ -1,0 +1,64 @@
+<div class="container">
+  <p-card>
+    <div class="flex justify-content-around">
+      <form [formGroup]="companyInfoForm">
+        <div formArrayName="fields">
+          <div *ngFor="let control of getFormField['controls']; index as index">
+            <div [formGroupName]="index">
+              <h2 class="text-xl">{{ control.get("label").value }}</h2>
+              <div
+                *ngIf="
+                  control.get('type').value === config.Types.radio ||
+                  control.get('type').value === config.Types.select
+                "
+              >
+                <div class="flex gap-3">
+                  <div
+                    *ngFor="let option of control.get('options').value"
+                    class="field-checkbox"
+                  >
+                    <p-radioButton
+                      [inputId]="option.value"
+                      [value]="option.value"
+                      formControlName="value"
+                    ></p-radioButton>
+                    <label [for]="option.value" class="ml-2">{{
+                      option.label
+                    }}</label>
+                  </div>
+                </div>
+                <p
+                  class="err-msg"
+                  *ngIf="isSubmitted && !control.get('value').valid"
+                >
+                  This Field is required
+                </p>
+              </div>
+              <div *ngIf="control.get('type').value === config.Types.date">
+                <p-calendar
+                  formControlName="value"
+                  [showIcon]="true"
+                ></p-calendar>
+                <p
+                  class="err-msg"
+                  *ngIf="isSubmitted && !control.get('value').valid"
+                >
+                  This Field is required
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="flex justify-content-end">
+      <p-button
+        class="pop-button"
+        label="Save"
+        [text]="true"
+        [raised]="true"
+        (onClick)="submit()"
+      ></p-button>
+    </div>
+  </p-card>
+</div>
