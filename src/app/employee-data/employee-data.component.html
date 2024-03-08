@@ -1,4 +1,5 @@
 <div class="container">
+  <p-toast></p-toast>
   <p-card>
     <div class="flex justify-content-around">
       <form [formGroup]="employeeForm" class="form-container">
@@ -149,7 +150,7 @@
     <div class="flex justify-content-end">
       <p-button
         class="pop-button"
-        label="Next"
+        label="Save"
         [text]="true"
         [raised]="true"
         (onClick)="submit()"

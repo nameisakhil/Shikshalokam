@@ -16,12 +16,19 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
+import { TableDetailsComponent } from './table-details/table-details.component';
+import { TableModule } from 'primeng/table';
+import { TreeTableModule } from 'primeng/treetable';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     EmployeeDataComponent,
     CompanyInformationComponent,
+    TableDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +44,11 @@ import { CardModule } from 'primeng/card';
     CheckboxModule,
     CalendarModule,
     CardModule,
+    TableModule,
+    TreeTableModule,
+    ToastModule,
+    MessageModule,
+    MessagesModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

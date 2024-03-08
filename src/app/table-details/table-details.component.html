@@ -1,0 +1,28 @@
+<div class="container">
+  <p-table
+    [value]="tableList"
+    [tableStyle]="{ 'min-width': '80vw', 'max-width': '90vw' }"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th
+          *ngFor="let key of keyListMain; index as index"
+          [colSpan]="colspanList[index]"
+        >
+          {{ key }}
+        </th>
+      </tr>
+      <tr>
+        <th *ngFor="let key of secondKeyList">{{ key }}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-employee>
+      <tr>
+        <td *ngFor="let key of secondKeyList">{{ employee[key] }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

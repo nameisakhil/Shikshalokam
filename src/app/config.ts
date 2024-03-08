@@ -1,6 +1,7 @@
 export enum ActiveTab {
   employee = 'employee',
   company = 'company',
+  table = 'table',
 }
 
 export enum Validations {

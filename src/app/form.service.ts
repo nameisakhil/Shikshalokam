@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormService {
-  employeeData: any = [];
+  employeeData: Subject<any> = new BehaviorSubject([]);
   constructor(private http: HttpClient) {}
 
   companyDataDisabled: BehaviorSubject<boolean> = new BehaviorSubject(true);
@@ -26,5 +26,9 @@ export class FormService {
 
   activeTabChange(string: string) {
     this.activeTab.next(string);
+  }
+
+  employeeDataChange(array) {
+    this.employeeData.next(array);
   }
 }

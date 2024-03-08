@@ -10,6 +10,7 @@ import {
 import * as _ from 'lodash';
 import * as config from '../config';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-employee-data',
   templateUrl: './employee-data.component.html',
@@ -17,6 +18,7 @@ import { Router } from '@angular/router';
 })
 export class EmployeeDataComponent implements OnInit {
   formEmployeeData;
+  listOfAllEmployeeDetails;
   config = config;
   isSubmitted: boolean;
   employeeForm: FormGroup = new FormGroup({
@@ -25,7 +27,11 @@ export class EmployeeDataComponent implements OnInit {
   schema: any;
   employeesArray: any;
 
-  constructor(private formService: FormService, private router: Router) {}
+  constructor(
+    private formService: FormService,
+    private router: Router,
+    private messageService: MessageService
+  ) {}
   ngOnInit(): void {
     // fetching the schema from the JSON file
     this.formService.getFormSchema().then((data) => {
@@ -55,6 +61,17 @@ export class EmployeeDataComponent implements OnInit {
             }
           });
         });
+      }
+    });
+    this.formService.employeeData.subscribe((val) => {
+      this.listOfAllEmployeeDetails = val;
+      if (
+        val.length === 0 &&
+        sessionStorage.getItem('listOfAllEmployeeDetails')
+      ) {
+        this.listOfAllEmployeeDetails = JSON.parse(
+          sessionStorage.getItem('listOfAllEmployeeDetails')
+        );
       }
     });
   }
@@ -120,31 +137,46 @@ export class EmployeeDataComponent implements OnInit {
       this.formService.masterForm['formFields'] =
         this.employeeForm.value.formFields;
       this.formService.companyDataDisabledChange(false);
-      this.formService.activeTabChange('company');
+      let masterDetails = {};
+
+      _.map(this.employeeForm.value.formFields, (field) => {
+        let employee = {};
+
+        _.map(field.fields, (detail) => {
+          employee[detail.name] = detail[detail.name];
+        });
+        masterDetails[field.label] = employee;
+      });
+      this.listOfAllEmployeeDetails.push(masterDetails);
+      this.formService.employeeDataChange(this.listOfAllEmployeeDetails);
+      sessionStorage.setItem(
+        'listOfAllEmployeeDetails',
+        JSON.stringify(this.listOfAllEmployeeDetails)
+      );
+      console.log(this.listOfAllEmployeeDetails);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Employee Details Successfully Added',
+      });
+      _.map(this.getFormField.controls, (control, index) => {
+        _.map(this.getSubFormFields(index).controls, (group, index2) => {
+          group.get(group.get('name').value).patchValue(undefined);
+          this.isSubmitted = false;
+          sessionStorage.removeItem('employeeForm');
+          group.updateValueAndValidity();
+        });
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Something went wrong please resolve the errors in Form',
+      });
       sessionStorage.setItem(
         'employeeForm',
         JSON.stringify(this.employeeForm.value)
       );
-      // this.router.navigate(['/company']);
-      let masterDetails = {};
-      let employeeDetailsList = [];
-
-      _.map(this.employeeForm.value.formFields, (field) => {
-        let employeeDetails = {};
-        employeeDetails['label'] = field.label;
-        employeeDetails['details'] = [];
-
-        _.map(field.fields, (detail) => {
-          let employee = {};
-          employee[detail.name] = detail[detail.name];
-          employeeDetails['details'].push(employee);
-        });
-
-        employeeDetailsList.push(employeeDetails);
-      });
-      masterDetails['Master Details'] = employeeDetailsList;
-      this.formService.employeeData.push(masterDetails);
-      console.log(this.formService.employeeData);
     }
   }
 }

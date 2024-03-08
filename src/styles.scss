@@ -131,4 +131,21 @@ body {
     height: 245px;
     overflow-y: scroll;
   }
+
+  //Tables
+  .p-datatable-table {
+    border: 2px solid var(--primary-darker-color);
+  }
+  .p-datatable > .p-datatable-wrapper {
+    height: 75vh;
+  }
+  .p-datatable-table .p-datatable-thead tr {
+    border: 1px solid var(--gray-color);
+    background-color: var(--primary-darker-color);
+  }
+  .p-datatable .p-datatable-thead > tr > th {
+    background-color: transparent;
+    color: white;
+    text-align: center;
+  }
 }

@@ -16,17 +16,14 @@
     >
       Employee Data
     </a>
-    <!-- <a
+    <a
       class="nav-item"
-      *ngIf="!isDisabled"
-      routerLink="company"
-      (click)="activeTab = activeTabConfig.company"
-      [ngClass]="activeTab === activeTabConfig.company ? 'active' : ''"
+      routerLink="details-table"
+      href="#"
+      (click)="activeTab = activeTabConfig.table"
+      [ngClass]="activeTab === activeTabConfig.table ? 'active' : ''"
     >
-      Company Information
+      All Employee Detils
     </a>
-    <a class="nav-item" *ngIf="isDisabled" class="disabled">
-      Company Information
-    </a> -->
   </div>
 </div>
